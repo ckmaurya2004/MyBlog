@@ -16,8 +16,9 @@ def blogPost(request,slug,myid):
     param = {'post':post,'cat_post':cat_post}
     return render(request,'blogpost.html',param)
 
-def about(request):
-    return render(request,'about.html')
+def about(request,pk):
+    cat = Category.objects.filter(id = pk).first()
+    return render(request,'about.html',{'cat':cat})
 
 
 def category(request,myid):
@@ -30,16 +31,14 @@ def category(request,myid):
 
 
 def search(request):
-    print(request)
-    query = request.GET.get('search','')
-    print(query)
+    query = request.POST.get('search')
     if len(query)>50:
-        allpost = Post.objects.none()
+        allposts = Post.objects.none()
     else:
         posttitle = Post.objects.filter(title__icontains = query)
         postdesc = Post.objects.filter(desc__icontains = query)
         postauthor = Post.objects.filter(author__icontains = query)
         allposts = posttitle.union(postdesc,postauthor)
-    cat = Category.objects.all()
-    param = {'allposts': allposts ,'query':query,'cat':cat}       
-    return render(request,'index.html',param)
+    print(allposts)
+    param = {'allposts': allposts ,'query':query}       
+    return render(request,'search.html',param)

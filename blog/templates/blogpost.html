@@ -30,7 +30,7 @@
             <br>
 
             <div class="blog-post">
-                <p class="blog-post-meta">{{post.timestemp}} by <a href="/about">{{post.author}}</a></p>
+                <p class="blog-post-meta">{{post.timestemp}} by <a href="/about/{{request.id}}/">{{post.author}}</a></p>
                <p> {{post.desc|safe}}</p>
             </div>
         </div>
