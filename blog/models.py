@@ -16,6 +16,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=  100)
     author = models.CharField(max_length=  100,default="")
+    auther_desc = HTMLField()
     slug = models.CharField(max_length=  100)
     desc =  HTMLField()
     timestemp = models.DateField(blank=True)

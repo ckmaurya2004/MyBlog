@@ -1,9 +1,11 @@
 {% extends "basic.html" %}
 
+{% load mathfilters %}
 
 {% block title %} blog Post{% endblock %}
 
 {% block body %}
+
 <div class="container my-4">
     <div class="row">
         <div class="col-md-6">
@@ -12,7 +14,7 @@
    {%for i in cat_post %}
     <div class="col-md-6">
         <p class="text-center text-primary"><b>{{i.title}}</b>   ({{i.add_date}}) </p>
-        <p>{{i.desc|safe|truncatechars:400}}</p>
+        <p>{{i.desc|safe|truncatechars:345}}</p>
         <img class="float-right" src="{{i.image.url}}" >
     </div>
     {% endfor %}
@@ -30,7 +32,9 @@
             <br>
 
             <div class="blog-post">
-                <p class="blog-post-meta">{{post.timestemp}} by <a href="/about/{{request.id}}/">{{post.author}}</a></p>
+                {%for i in cat_post %}
+                <p class="blog-post-meta">{{post.timestemp}} by <a href="/about/{{post.id}}/{{post.slug}}/">{{post.author}}</a></p>
+                {% endfor %}
                <p> {{post.desc|safe}}</p>
             </div>
         </div>

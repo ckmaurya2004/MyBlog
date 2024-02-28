@@ -10,16 +10,21 @@ def index(request):
     return render(request,'index.html',param)
 
 
-def blogPost(request,slug,myid):
+def about(request,pk,slug):
+    post = Post.objects.get(id = pk,slug = slug)
+    print(post)
+    cat = Category.objects.get(title = post.category)
+    print(pk,cat)
+ 
+    return render(request,'about.html',{'cat':cat,'post':post})
+
+
+
+def blogPost(request,myid,slug):
     post = Post.objects.filter(id = myid,slug = slug).first()
     cat_post = Category.objects.filter(title = post.category)
     param = {'post':post,'cat_post':cat_post}
     return render(request,'blogpost.html',param)
-
-def about(request,pk):
-    cat = Category.objects.filter(id = pk).first()
-    return render(request,'about.html',{'cat':cat})
-
 
 def category(request,myid):
     cat = Category.objects.all()
